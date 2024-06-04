@@ -1,53 +1,73 @@
-# crie um programa que tenha 
-'''
-Crie um programa que tenha as opções:
- - Inserir pessoa na lista
- - Listar pessoas cadastradas
- - Pesquisar pelo nome de uma pessoa
- - Ordenar a lista por ordem alfabética
- - Atualizar nome
- - Deletar nome da lista
- - Sair do programa
+# importa biblioteca
+import os
 
-Ao terminar, crie um repositório local e um remoto, e envie o link do repositório do GitHub.
-'''
+# lista
+nomes = []
 
-#lista de pessoas
-pessoas_lista = ['Jaiane', 'Gabi', 'Maria', 'Pai', 'Mãe', 'Matheus', 'Vitinho', 'Marcia']
-#insira uma pessoa na lista
+# loop
 while True:
-    pessoas = input('insira uma pessoa na lista: ')
-    if pessoas_lista != '':
-        pessoas.append(pessoas)
-        continue
-#listar pessoas cadastradas
-    print(pessoas_lista)
-#pesquisar uma pessoa na lista
-    pessoas = input('informe o nome que deseja pesquisar na lista: ')
-#ordenar lista por ordem alfabética
-    pessoas_lista.sort()
-    for pessoas in pessoas_lista:
-        print(pessoas)
-#atualizar nome de pessoas da lista
-    pessoa_a_atualizar = ('informe a pessoa que deseja atualizar: ')
-    pessoas_lista[pessoas_lista.index(pessoa_a_atualizar)] = input('Informe o novo nome: ')
-    for pessoas in pessoas_lista:
-        print(pessoas)
-#deletar pessoa da lista
-    posicao = int(input('Informe a posicao da pessoa que deseja deletar (de 1 a 8): '))posicao -= 1
-    try
-            del(pessoas_lista[posição])
-    except:
-        print('Não foi possível deletar.')
-        for pessoas in pessoas_lista:
-            print(pessoas)
-# tenta deletar o item na posição informada
-        try:
-        del(pessoas_lista[posicao])
-        except:
-        print('Não foi possível deletar.')
-# exibe a nova lista
-        for pessoa in pessoas_lista:
-            print(pessoas)
-#sair do programa
-        break
+    # opções
+    print(f'{'-' * 30} CRUD {'-' * 30}\n')
+    print('1 - Inserir nome.')
+    print('2 - Listar nomes.')
+    print('3 - Pesquisar por um nome.')
+    print('4 - Ordenar nomes.')
+    print('5 - Atualizar um nome.')
+    print('6 - Deletar um nome.')
+    print('7 - Sair do programa.')
+
+    # usuário informa a opção desejada
+    opcao = int(input('Informe a opção desejada: '))
+
+    # limpa console
+    os.system('cls')
+
+    # verifica a opção escolhida
+    match opcao:
+        case 1:
+            novo_nome = input('Novo nome: ')
+            nomes.append(novo_nome)
+            print(f'{novo_nome} inserido com sucesso.\n')
+            continue
+        case 2:
+            for i in range(len(nomes)):
+                print(f'ID: {i + 1} - {nomes[i]}')
+            print('')
+            continue
+        case 3:
+            pesquisa_nome = input('Pesquisar nome: ')
+            quantidade = nomes.count(pesquisa_nome)
+            try:
+                print(f'Encontrado {quantidade} vezes: {pesquisa_nome}\n')
+            except:
+                print(f'{pesquisa_nome} não encontrado.\n')
+            continue
+        case 4:
+            nomes.sort()
+            print('Ordenação feita com sucesso.\n')
+            continue
+        case 5:
+            id_nome = int(input('Informe o ID do nome a ser alterado: '))
+            if id_nome > 0 and id_nome < len(nomes):
+                id_nome -= 1
+            else:
+                print(f'{id_nome} inválido.\n')
+                continue
+            nomes[id_nome] = input('Informe o novo nome: ')
+            print(f'Nome do ID {id_nome + 1} alterado com sucesso.\n')
+            continue
+        case 6:
+            id_nome = int(input('Informe o ID do nome a ser excluído: '))
+            if id_nome > 0 and id_nome < len(nomes):
+                id_nome -= 1
+            else:
+                print(f'{id_nome} inválido.\n')
+                continue
+            del(nomes[id_nome])
+            print(f'Nome deletado com sucesso.\n')
+            continue
+        case 7:
+            break
+        case _:
+            print('Opção inválida.\n')
+            continue
